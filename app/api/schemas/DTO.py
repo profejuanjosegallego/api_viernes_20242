@@ -21,16 +21,26 @@ class UsuarioDTORespuesta():
         orm_mode=True
 
 class GastoDTOPeticion():
-    pass
+    monto=int
+    fecha=date
+    descripcion=str
+    nombre=str
 
 class GastoDTORespuesta():
-    pass
+    id=int
+    monto=int
+    fecha=date
+    descripcion=str
+    nombre=str
 
 class CategoriaDTOPeticion():
-    pass
+    nombreCategoria=str
+    descripcion=int
 
 class CategoriaDTORespuesta():
-    pass
+    id=int
+    nombreCategoria=str
+    descripcion=int
 
 class MetodoPagoDTOPeticion():
     pass
