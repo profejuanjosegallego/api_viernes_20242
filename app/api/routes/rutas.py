@@ -25,7 +25,27 @@ def getDataBase():
 #QUE OFRECERA NUESTRA API
 
 #SERVICIO PARA REGISTRAR O GUARDAR UN USUARIO EN BD
-@rutas.post("/usuarios6")
+@rutas.post("/usuarios", response_model=UsuarioDTORespuesta)
+def guardarUsuario(datosPeticion:UsuarioDTOPeticion, db:Session=Depends(getDataBase) ):
+    try:
+        usuario=Usuario(
+            nombres=datosPeticion.nombre,
+            edad=datosPeticion.edad,
+            telefono=datosPeticion.telefono,
+            correo=datosPeticion.correo,
+            contraseña=datosPeticion.contraseña,
+            fechaRegistro=datosPeticion.fechaRegistro,
+            ciudad=datosPeticion.ciudad
+        )
+        db.add(usuario)
+        db.commit()
+        db.refresh(usuario)
+        return usuario
+    except Exception as error:
+        db.rollback()
+        raise HTTPException(status_code=400, detail="Error al registrar el usuario")
+
+@rutas.post("/gastos")
 def guardarUsuario(datosPeticion:UsuarioDTOPeticion, db:Session=Depends(getDataBase) ):
     try:
         usuario=Usuario(
@@ -45,7 +65,16 @@ def guardarUsuario(datosPeticion:UsuarioDTOPeticion, db:Session=Depends(getDataB
         db.rollback()
         raise HTTPException()
 
+@rutas.get("/usuarios", response_model=List[UsuarioDTORespuesta])
+def buscarUsuarios(db:Session=Depends(getDataBase)):
+    try:
+        listadoDeUsuarios=db.query(Usuario).all()
+        return listadoDeUsuarios
+    except Exception as error:
+        db.rollback()
+        raise HTTPException()
 
-@rutas.get("/usuarios")
-def buscarUsuarios():
-    pass
+
+
+
+
