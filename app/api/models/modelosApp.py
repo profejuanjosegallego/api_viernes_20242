@@ -18,30 +18,3 @@ class Usuario(Base):
     fechaRegistro=Column(Date)
     ciudad=Column(String(50))
 
-#GASTO
-class Gasto(Base):
-    #id
-    #monto
-    #fecha
-    #descripcion
-    #nombre
-    pass
-
-#CATEGORIA
-class Categoria(Base):
-    pass
-    #id
-    #nombreCategoria
-    #descripcion
-    #fotoicono
-
-#METODOS DE PAGO
-class MetodoPago(Base):
-    pass
-    #id
-    #nombreMetodo
-    #descripcion
-
-#FACTURA
-class Factura(Base):
-    pass

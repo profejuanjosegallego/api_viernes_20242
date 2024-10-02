@@ -40,13 +40,17 @@ def guardarUsuario(datosPeticion:UsuarioDTOPeticion, db:Session=Depends(getDataB
         db.add(usuario)
         db.commit()
         db.refresh(usuario)
-        return usuario
+        return UsuarioDTORespuesta(
+            id=usuario.id,
+            nombre=usuario.nombres,  # Asegúrate de usar el campo correcto
+            telefono=usuario.telefono,
+            ciudad=usuario.ciudad
+        )
     except Exception as error:
         db.rollback()
         raise HTTPException(status_code=400, detail="Error al registrar el usuario")
 
-@rutas.post("/gastos")
-def guardarUsuario(datosPeticion:UsuarioDTOPeticion, db:Session=Depends(getDataBase) ):
+
     try:
         usuario=Usuario(
             nombres=datosPeticion.nombre,
@@ -60,7 +64,12 @@ def guardarUsuario(datosPeticion:UsuarioDTOPeticion, db:Session=Depends(getDataB
         db.add(usuario)
         db.commit()
         db.refresh(usuario)
-        return usuario
+        return UsuarioDTORespuesta(
+            id=usuario.id,
+            nombre=usuario.nombres,  # Asegúrate de usar el campo correcto
+            telefono=usuario.telefono,
+            ciudad=usuario.ciudad
+        )
     except Exception as error:
         db.rollback()
         raise HTTPException()
@@ -69,7 +78,14 @@ def guardarUsuario(datosPeticion:UsuarioDTOPeticion, db:Session=Depends(getDataB
 def buscarUsuarios(db:Session=Depends(getDataBase)):
     try:
         listadoDeUsuarios=db.query(Usuario).all()
-        return listadoDeUsuarios
+        return [
+            UsuarioDTORespuesta(
+                id=usuario.id,
+                nombre=usuario.nombres, 
+                telefono=usuario.telefono,
+                ciudad=usuario.ciudad
+            ) for usuario in listadoDeUsuarios
+        ]
     except Exception as error:
         db.rollback()
         raise HTTPException()

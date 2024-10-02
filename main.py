@@ -1,9 +1,11 @@
 from fastapi import FastAPI
 from app.database.configuration import engine 
-from app.api.models.modelosApp import Usuario
+from app.api.models.modelosApp import Usuario, Base
 from app.api.routes.rutas import rutas
 
 from starlette.responses import RedirectResponse
+
+Base.metadata.create_all(bind=engine)
 
 #variable para administrar la aplicacion
 app=FastAPI()

@@ -12,7 +12,7 @@ class UsuarioDTOPeticion(BaseModel):
     class Config:
         orm_mode=True
 
-class UsuarioDTORespuesta():
+class UsuarioDTORespuesta(BaseModel):
     id:int
     nombre:str
     telefono: str
@@ -20,26 +20,3 @@ class UsuarioDTORespuesta():
     class Config:
         orm_mode=True
 
-class GastoDTOPeticion():
-    pass
-
-class GastoDTORespuesta():
-    pass
-
-class CategoriaDTOPeticion():
-    pass
-
-class CategoriaDTORespuesta():
-    pass
-
-class MetodoPagoDTOPeticion():
-    pass
-
-class MetodoPagoDTORespuesta():
-    pass
-
-class FacturaDTOPeticion():
-    pass
-
-class FacturaDTORespuesta():
-    pass
